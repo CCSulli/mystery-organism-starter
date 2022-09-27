@@ -13,13 +13,13 @@ const mockUpStrand = () => {
   return newStrand
 }
 
-const strongpAequors = [];
+const strongpAequors = []; // Stores pAequor who are more likley to survive
 
 const pAequorFactory = (specimenNum, dna) => {
   return {
     specimenNum,
     dna,
-    mutate() {  
+    mutate() {  // Changes one base in DNA strand
       console.log('Old DNA: ' + dna)
       let newBase = returnRandBase();
       let newLocation = Math.floor(Math.random() * 15);
@@ -28,7 +28,7 @@ const pAequorFactory = (specimenNum, dna) => {
       }   
         console.log('New DNA: ' + dna);
     },
-    compareDNA(otherSpecimen) {
+    compareDNA(otherSpecimen) { //Compares DNA between two specimens
       let baseCounter = 0;
       for (i = 0; i < 15; i++) {
         if (this.dna[i] === otherSpecimen.dna[i]) {
@@ -39,7 +39,7 @@ const pAequorFactory = (specimenNum, dna) => {
       console.log(`Specimen #${this.specimenNum} and #${otherSpecimen.specimenNum} have ${percentDNA.toFixed()}% DNA in common.`)
     },
 
-    willLikelySurvive() {
+    willLikelySurvive() { // Survival rate is high if DNA contains 60% or more C or G
       let survivalCounter = 0;
       for (i = 0; i < 15; i++) {
         if (dna[i] === 'C' || dna[i] === 'G') {
@@ -54,8 +54,7 @@ const pAequorFactory = (specimenNum, dna) => {
 };
  
 let idCounter = 1;
-
-while (strongpAequors.length < 30) {
+while (strongpAequors.length < 30) { // Stores 30 specimens with high survival rate
   let newOrg = pAequorFactory(idCounter, mockUpStrand());
   if (newOrg.willLikelySurvive()) {
     strongpAequors.push(newOrg);
@@ -64,8 +63,8 @@ while (strongpAequors.length < 30) {
 }
 
 console.log(strongpAequors);
-strongpAequors[1].mutate();
-strongpAequors[1].compareDNA(strongpAequors[2]);
+strongpAequors[1].mutate(); // Tests of DNA mutation on one specimen
+strongpAequors[1].compareDNA(strongpAequors[2]); // Test comparing DNA between two specimens
 
 
 
